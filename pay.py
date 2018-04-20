@@ -41,20 +41,42 @@ def index():
 
 
 def handle_excel(file_path):
-    data = xlrd.open_workbook(file_path)
-    table = data.sheets()[0]
+    excel = xlrd.open_workbook(file_path)
+    table = excel.sheets()[0]
     nrows = table.nrows
     ncols = table.ncols
-    data = []
+    fields = {}
+    datas = []
+    title = ''
+    result = ''
+
     for i in xrange(0, nrows):
         rowValues = table.row_values(i)
+        pays = {}
         for item in rowValues:
-            data = item
+            if i == 0:
+                title = item
+            elif i in [1]:
+                if item:
+                    fields[rowValues.index(item)] = item
+            else:
+                pays[fields.get(rowValues.index(item))] = item
+        if i not in [0, 1]:
+            other_pays = list(set(fields.values()) - set(pays.keys()))
+            e_mail = pays.pop('email')
+            tel = pays.pop('tel')
+            for x in other_pays:
+                pays[x] = '-'
+            for f, p in pays.items():
+                re = "<tr><th>%s</th><td>%s</td></tr>" % (f, p)
+                datas.append(re)
+            result = render_template('email.html', title=title, datas=datas)
+            send_email(result, e_mail)
+            break
 
-    send_email(data)
     os.remove(file_path)
 
-def send_email(data):
+def send_email(result, e_mail):
 
     # 输入Email地址和口令:
     from_addr = 'yutingting@yunrongtech.com'
@@ -62,9 +84,10 @@ def send_email(data):
     # 输入SMTP服务器地址:
     smtp_server = 'mail.yunrongtech.com'
     # 输入收件人地址:
-    to_addr = 'yutingting@yunrongtech.com'
+    # to_addr = 'yutingting@yunrongtech.com'
+    to_addr = e_mail
 
-    msg = MIMEText('hello, send by my heart...', 'plain', 'utf-8')
+    msg = MIMEText(result, 'html', 'utf-8')
     msg['From'] = _format_addr('Love You <%s>' % from_addr)
     msg['To'] = _format_addr('My Love <%s>' % to_addr)
     msg['Subject'] = Header('Love', 'utf-8').encode()
