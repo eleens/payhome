@@ -26,7 +26,7 @@ patch_request_class(app)
 
 class PhotoForm(FlaskForm):
     photo = FileField(validators=[FileRequired()])
-    submit = SubmitField('submit')
+    submit = SubmitField('submit',)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -49,6 +49,9 @@ def handle_excel(file_path):
     datas = []
     title = ''
     result = ''
+    import HTMLParser
+    html_parser = HTMLParser.HTMLParser()
+
 
     for i in xrange(0, nrows):
         rowValues = table.row_values(i)
@@ -62,15 +65,17 @@ def handle_excel(file_path):
             else:
                 pays[fields.get(rowValues.index(item))] = item
         if i not in [0, 1]:
-            other_pays = list(set(fields.values()) - set(pays.keys()))
+            # other_pays = list(set(fields.values()) - set(pays.keys()))
             e_mail = pays.pop('email')
             tel = pays.pop('tel')
-            for x in other_pays:
-                pays[x] = '-'
-            for f, p in pays.items():
-                re = "<tr><th>%s</th><td>%s</td></tr>" % (f, p)
+            field_list = fields.values()
+            field_list.remove('email')
+            field_list.remove('tel')
+            for f in field_list:
+                re = '<tr><th class="active">%s</th><td>%s</td></tr>' % (f, pays.get(f, '-'))
                 datas.append(re)
             result = render_template('email.html', title=title, datas=datas)
+            result = html_parser.unescape(result)
             send_email(result, e_mail)
             break
 
@@ -84,8 +89,9 @@ def send_email(result, e_mail):
     # 输入SMTP服务器地址:
     smtp_server = 'mail.yunrongtech.com'
     # 输入收件人地址:
-    # to_addr = 'yutingting@yunrongtech.com'
+    # to_addr = 'liuqi@yunrongtech.com'
     to_addr = e_mail
+    # result = "I LOVE YOU"
 
     msg = MIMEText(result, 'html', 'utf-8')
     msg['From'] = _format_addr('Love You <%s>' % from_addr)

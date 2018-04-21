@@ -3,11 +3,20 @@
 
 {% block content %}
 
-
+<div class="container">
+     <div class="text-center">
 <form method="POST" enctype="multipart/form-data">
+     <div class="form-container col-lg-4">
+          <div class="form_group">
      {{ form.hidden_tag() }}
      {{ form.photo }}
-     {{ form.submit }}
+               </div>
+          <br>
+          <div class="form_group">
+     {{ form.submit(class='btn btn-primary btn-lg btn-block') }}
+               </div>
+          </div>
 </form>
-
+          </div>
+</div>
 {% endblock %}

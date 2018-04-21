@@ -1,16 +1,216 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+
+{% extends 'bootstrap/base.html' %}
+
+{% block title %} 工资管家 {% endblock %}
+{% block metas %}
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
+{% endblock %}
+
+{% block stylee %}
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<table  class="table table-bordered">
+    <tbody>
     {% for opt in datas %}
             {{ opt }}
     {% endfor %}
+    </tbody>
+
 
 </table>
+{% endblock %}
 
+{% block js %}
+    <script src=/static/js/bootstrap.min.js></script>
+    <script src=/static/js/jquery-3.1.1.min.js></script>
+{% endblock %}
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Demystifying Email Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin:0;padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <table align="center" border="1" cellpadding="0" cellspacing="0"
+                   width="950"
+                   style="border-collapse: collapse; font-family: 'Helvetica Neue';">
+                <tr>
+                    <td style="padding: 5% 0 5% 0;">
+                        <table align="center" border="0" cellpadding="0"
+                               cellspacing="0" width="90%"
+                               style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 2% 0 2% 0">
+                                    <table cellpadding="0" cellspacing="0"
+                                           width="90%">
+                                        <tr>
+                                            <td style="text-align: center; padding:6px 12px 6px 12px;color: #333333; font-size: 24px; line-height: 30px;">
+                                                VisionStack云平台运行状态报告
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table align="center" border="1"
+                                           cellpadding="0" cellspacing="0"
+                                           width="90%"
+                                           style="border-collapse: collapse;">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table align="center" cellpadding="0"
+                                           cellspacing="0" width="90%">
+                                        <tr>
+                                            <td colspan="6"
+                                                style="text-align: right; padding:2% 2% 2% 2%; font-size: 14px; color: #333333">
+                                                报告发送周期：{{ period }}天
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"
+                                                style="text-align: right; padding:2% 2% 2% 2%; font-size: 15px; color: #333333">
+                                                报告发送时间：{{ time }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"
+                                                style="padding: 3% 0 3% 0;font-size: 18px; color: #2F9EC9">
+                                                平台概况：
+                                            </td>
+                                        </tr>
+                                        <!-- 资源概况 -->
+                                        <tr>
+                                            <td colspan="6"
+                                                style="padding: 3% 0 3% 0;font-size: 16px; color: #333333;text-align: center;">
+                                                资源概况
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <table align="center" border="1"
+                                                       cellpadding="0"
+                                                       cellspacing="0"
+                                                       width="90%"
+                                                       style="border-collapse: collapse; text-align: center; border-color:#dedede">
+                                                    <tr style="background-color: #2F9EC9">
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #ffffff">
+                                                            名称(单位)
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #ffffff">
+                                                            总资源
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #ffffff">
+                                                            剩余资源
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #ffffff">
+                                                            租户配额总量
+                                                        </td>
+                                                    </tr>
+                                                    {% for k, v in instance_resource.items() %}
+                                                    <tr>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {% if k == 'cpu'%}
+                                                                CPU(核)
+                                                            {% elif k == 'mem' %}
+                                                                内存(G)
+                                                            {% else %}
+                                                                磁盘(G)
+                                                            {% endif %}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ v.sum }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ v.remain }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ v.project_avail }}
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                {% if volume_resource%}
+                                                    <tr>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            性能型云硬盘(G)
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_ssd }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.free_ssd }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_quota_ssd }}
+                                                        </td>
+                                                    </tr>
+                                                <tr>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            容量型云硬盘(G)
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_hdd }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.free_hdd }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_quota_hdd }}
+                                                        </td>
+                                                    </tr>
+                                                <tr>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            混合型云硬盘(G)
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_hybrid }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.free_hybrid }}
+                                                        </td>
+                                                        <td style="padding: 2% 0 2% 0;font-size: 14px; color: #666666">
+                                                            {{ volume_resource.total_quota_hybrid }}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- 新增资源情况 -->
+
+
+
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 </body>
 </html>
