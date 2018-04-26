@@ -15,5 +15,5 @@ from wtforms import SubmitField
 
 class FileForm(FlaskForm):
     files = FileField(validators=[FileRequired()],
-                      render_kw={"placeholder": "E-mail: yourname@example.com", "style": "display:none"})
-    submit = SubmitField('submit')
+                      render_kw={"style": "display:none"})
+    submit = SubmitField(unicode('发送邮件', 'utf-8'))

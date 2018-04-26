@@ -10,7 +10,7 @@
             <td>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="form-container">
-                        <div class="form_group center">
+                        <div class="form_group">
                             <label><img src="../static/img/excel.ico"
                                         alt=""></label>
                             <span id="filename" style="vertical-align: middle">未上传文件</span>
@@ -39,10 +39,9 @@
 <script src="../static/js/jquery-3.1.1.min.js"></script>
 <script>
     $(function () {
-        $('#files').bind('input propertychange', function () {
-            var file_name = $('#files').val();
-            console.log(file_name);
-            $('#filename').html(file_name);
+        $('#files').change(function () {
+            var file_name = $('#files').val().split('\\');
+            $('#filename').html(file_name[file_name.length-1]);
         });
     })
 </script>
