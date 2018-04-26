@@ -71,11 +71,17 @@ def handle_excel(file_path):
                                      pay_title=title,
                                      field_list=field_list,
                                      datas=pays)
+            tel_result = ''
             if e_mail and result:
                 send_email(name, result, e_mail)
+            if tel and tel_result:
+                send_message(tel_result, tel)
             break
 
     os.remove(file_path)
+
+def send_message(tel_result, tel):
+    pass
 
 def send_email(theme, result, e_mail):
 

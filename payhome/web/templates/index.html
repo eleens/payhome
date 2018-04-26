@@ -3,20 +3,48 @@
 
 {% block content %}
 
+
 <div class="container">
-     <div class="text-center">
-<form method="POST" enctype="multipart/form-data">
-     <div class="form-container col-lg-4">
-          <div class="form_group">
-     {{ form.hidden_tag() }}
-     {{ form.files }}
-               </div>
-          <br>
-          <div class="form_group">
-     {{ form.submit(class='btn btn-primary btn-lg btn-block') }}
-               </div>
-          </div>
-</form>
-          </div>
+    <table align="center" border="0" width="40%" valign="middle" height="500">
+        <tr>
+            <td>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-container">
+                        <div class="form_group center">
+                            <label><img src="../static/img/excel.ico"
+                                        alt=""></label>
+                            <span id="filename" style="vertical-align: middle">未上传文件</span>
+                        </div>
+                        <br>
+                        <div class="form_group">
+                            <label for="files"
+                                   class=" btn btn-primary btn-lg btn-block">上传工资表</label>
+                            {{ form.hidden_tag() }}
+                            {{ form.files(class= 'btn-primary btn-block') }}
+
+                        </div>
+
+                        <br>
+                        <br>
+                        <div class="form_group">
+                            {{ form.submit(class='btn btn-primary btn-lg btn-block') }}
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+
 </div>
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script>
+    $(function () {
+        $('#files').bind('input propertychange', function () {
+            var file_name = $('#files').val();
+            console.log(file_name);
+            $('#filename').html(file_name);
+        });
+    })
+</script>
+
 {% endblock %}
