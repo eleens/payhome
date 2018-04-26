@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td style="padding: 0 5% 4% 5% ">{{pay_title}}如下，请注意查收。
-            如果您在工资方面有任何疑问，请与财务部余晶晶联系。
+            如果您在工资方面有任何疑问，请与{{ email_data.get('user_dep') }}{{email_data.get('user_name')}}联系。
         </td>
     </tr>
     <tr>
@@ -112,26 +112,26 @@
         </td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">{{ email_data.get('user_email') }}</td>
+        <td style="padding: 1% 2%"><a href="mailto: {{ email_data.get('user_email') }}">{{ email_data.get('user_email') }}</a></td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">{{ email_data.get('company_ename') }}
+        <td style="padding: 1%">{{ email_data.get('company_ename') }}
             Co.,Ltd.
         </td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">{{ email_data.get('company_name') }}</td>
+        <td style="padding: 1%">{{ email_data.get('company_name') }}</td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">{{ email_data.get('company_addr') }}</td>
+        <td style="padding: 1%">{{ email_data.get('company_addr') }}</td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">电话：{{ email_data.get('company_tel') }}
+        <td style="padding: 1%">电话：{{ email_data.get('company_tel') }}
             传真：{{ email_data.get('company_fax') }}
         </td>
     </tr>
     <tr>
-        <td style="padding: 1% 2%">手机：{{ email_data.get('user_tel') }}
+        <td style="padding: 1% ">手机：{{ email_data.get('user_tel') }}
             邮编：{{ email_data.get('company_post') }}
         </td>
     </tr>
