@@ -11,7 +11,7 @@ PN:
 SECRET_KEY = 'xxxxxxxxx'
 
 HOST = '127.0.0.1'
-PORT = 5000
+PORT = 5001
 
 #邮件发送者的信息
 SMTP_SERVER = "mail.yunrongtech.com"

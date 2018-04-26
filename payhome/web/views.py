@@ -74,9 +74,9 @@ def handle_excel(file_path):
             tel_result = ''
             if e_mail and result:
                 send_email(name, result, e_mail)
+                print "send"
             if tel and tel_result:
                 send_message(tel_result, tel)
-            break
 
     os.remove(file_path)
 
